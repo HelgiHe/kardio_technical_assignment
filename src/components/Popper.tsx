@@ -14,7 +14,7 @@ export const Popper = ({children}: Props) => (
       </button>
     </Popover.Trigger>
     <Popover.Portal>
-      <Popover.Content className="bg-white border border-sand-500 rounded-md p-5 w-96 min-h-36">
+      <Popover.Content className="bg-white border border-sand-500 rounded-md p-5 w-fit max-w-screen min-h-36">
         <Popover.Close>
           <Cross2Icon />
           </Popover.Close>

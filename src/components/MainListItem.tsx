@@ -8,7 +8,7 @@ export type ListItemProps = {
 
 export const MainListItem = ({ title, subtitle, thumbnail }: ListItemProps) => {
   return (
-    <li className="flex flex-row px-4 py-2 my-2 rounded-md border border-sand-500 items-center">
+    <div className="flex flex-row px-4 py-2 my-2 rounded-md border border-sand-500 items-center">
       <div className="w-1/6">
         <TextComponent as="span" variant="h1">
           {thumbnail}
@@ -18,6 +18,6 @@ export const MainListItem = ({ title, subtitle, thumbnail }: ListItemProps) => {
         <TextComponent as="h3">{title}</TextComponent>
         <TextComponent as="p">{subtitle}</TextComponent>
       </div>
-    </li>
+    </div>
   );
 };
