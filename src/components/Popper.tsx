@@ -1,16 +1,17 @@
 import * as Popover from "@radix-ui/react-popover";
-import { RowsIcon , Cross2Icon} from "@radix-ui/react-icons";
+import { Cross2Icon } from "@radix-ui/react-icons";
 
 type Props = {
   children: React.ReactNode;
+  triggerIcon?: React.ReactElement;
 }
 
 
-export const Popper = ({children}: Props) => (
+export const Popper = ({children, triggerIcon}: Props) => (
   <Popover.Root>
     <Popover.Trigger>
       <button>
-        <RowsIcon />
+        {triggerIcon}
       </button>
     </Popover.Trigger>
     <Popover.Portal>

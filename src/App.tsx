@@ -6,6 +6,7 @@ import { ListItemProps, MainListItem } from "./components/MainListItem";
 import { Popper } from "./components/Popper";
 import { useForm, Resolver } from "react-hook-form";
 import { useDebounce } from "react-use";
+import { RowsIcon } from "@radix-ui/react-icons";
 import { AnimatePresence, motion } from "framer-motion";
 
 type FormValues = {
@@ -42,13 +43,14 @@ const resolver: Resolver<FormValues> = async (values) => {
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState<SearchResultsState>([]);
+  
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({ resolver });
 
-  const { listItems, addItem } = useListStore();
+  const { listItems, addItem, removeItem } = useListStore();
 
   const displayList = searchTerm ? searchResults : listItems;
 
@@ -85,40 +87,41 @@ function App() {
           <TextComponent as="h2" className="pb-2">
             The List
           </TextComponent>
-          <AnimatePresence mode="popLayout">
-            {displayList.length > 0 ? (
-              <ul>
+          {displayList.length > 0 ? (
+            <ul>
+              <AnimatePresence>
                 {displayList.map((item, index) => {
                   const { title, subtitle, thumbnail } = item;
                   return (
                     <motion.li
-                      key={`${item.title}-${index}`}
+                      key={`${title}-${index}`}
                       layout
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      transition={{ duration: 1.6, type: "tween" }}
+                      transition={{ duration: 0.6, type: "tween" }}
                     >
                       <MainListItem
                         title={title}
                         subtitle={subtitle}
                         thumbnail={thumbnail}
+                        onRemovePress={removeItem}
                       />
                     </motion.li>
                   );
                 })}
-              </ul>
-            ) : (
-              <div className="w-full h-60 border flex justify-center items-center border-sand-500 rounded-md">
-                <TextComponent as="p" variant="h1">
-                  Nothing here
-                </TextComponent>
-              </div>
-            )}
-          </AnimatePresence>
+              </AnimatePresence>
+            </ul>
+          ) : (
+            <div className="w-full h-60 border flex justify-center items-center border-sand-500 rounded-md">
+              <TextComponent as="p" variant="h1">
+                Nothing here
+              </TextComponent>
+            </div>
+          )}
         </div>
         <div className="flex items-center justify-center pt-2">
-          <Popper>
+          <Popper triggerIcon={<RowsIcon />}>
             <div className="flex flex-row flex-wrap">
               <div className="mr-2">
                 <TextComponent as="h4">Add</TextComponent>
